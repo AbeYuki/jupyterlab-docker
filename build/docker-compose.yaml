@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  jupyterlab:
+    container_name: jupyterlab
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8888:8888
+    volumes:
+      - jupter_data:/home/jupyter
+volumes:
+  jupter_data:

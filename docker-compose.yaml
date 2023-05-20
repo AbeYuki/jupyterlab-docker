@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  jupyterlab:
+    container_name: jupyterlab
+    image: abeyuki/jupyterlab-python-3.11.3-bullseye
+    ports:
+      - 8888:8888
+    volumes:
+      - jupter_data:/home/jupyter
+  selenium:
+    container_name: selenium-chrome
+    image: selenium/standalone-chrome:113.0.5672.63
+    ports:
+      - 4444:4444
+      - 5900:5900
+volumes:
+  jupter_data:
