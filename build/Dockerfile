@@ -1,11 +1,14 @@
-FROM --platform=$BUILDPLATFORM python:3.11.3-bullseye AS builder
+FROM python:3.11.3-bullseye
 ARG JUPYTER_USER=jupyter
 ARG JUPYTER_UID=1000
+ARG JUPYTER_GROUP=jupyter
+ARG JUPYTER_GID=1000
 ENV USER ${JUPYTER_USER}
 ENV HOME /home/${JUPYTER_USER}
-RUN useradd -m -s /bin/bash -N -u ${JUPYTER_UID} ${JUPYTER_USER} && \
+RUN groupadd -g ${JUPYTER_GID} ${JUPYTER_GROUP} && \
+    useradd -m -s /bin/bash -N -u ${JUPYTER_UID} -g ${JUPYTER_GID} ${JUPYTER_USER} && \
     mkdir -p /home/${JUPYTER_USER} && \
-    chown ${JUPYTER_USER} /home/${JUPYTER_USER}
+    chown ${JUPYTER_USER}:${JUPYTER_GROUP} /home/${JUPYTER_USER}
 ENV SHELL="/bin/bash"
 ENV TZ=Asia/Tokyo
 ENV PYTHONIOENCODING utf-8
